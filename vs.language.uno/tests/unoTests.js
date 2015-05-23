@@ -4,8 +4,8 @@
  *--------------------------------------------------------*/
 /// <reference path="../../declares.d.ts" />
 'use strict';
-define(["require", "exports", '../csharpDef', 'monaco-testing'], function (require, exports, csharpDef, T) {
-    var tokenizationSupport = T.createTokenizationSupport(csharpDef.language);
+define(["require", "exports", '../unoDef', 'monaco-testing'], function (require, exports, unoDef, T) {
+    var tokenizationSupport = T.createTokenizationSupport(unoDef.language);
     var tokenize = T.createTokenizeFromSupport(tokenizationSupport);
     var assertTokens = T.assertTokens;
     function assertTokens2(message, expected) {
