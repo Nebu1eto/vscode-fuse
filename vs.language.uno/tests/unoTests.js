@@ -2,7 +2,6 @@
  * Forked from C# Defined.
  * Configuration by Realignist
  *--------------------------------------------------------*/
-/// <reference path="../../declares.d.ts" />
 'use strict';
 define(["require", "exports", '../unoDef', 'monaco-testing'], function (require, exports, unoDef, T) {
     var tokenizationSupport = T.createTokenizationSupport(unoDef.language);

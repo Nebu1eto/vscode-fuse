@@ -1,7 +1,6 @@
 /*---------------------------------------------------------
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
-/// <reference path="../../declares.d.ts" />
 'use strict';
 define(["require", "exports", '../xmlDef', 'monaco-testing'], function (require, exports, languageDef, T) {
     var tokenizationSupport = T.createTokenizationSupport(languageDef.language);

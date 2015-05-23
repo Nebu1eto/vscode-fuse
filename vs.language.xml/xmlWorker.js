@@ -1,7 +1,6 @@
 /*---------------------------------------------------------
  * Copyright (C) Microsoft Corporation. All rights reserved.
  *--------------------------------------------------------*/
-/// <reference path="../declares.d.ts" />
 'use strict';
 define(["require", "exports", 'vs/languages/lib/htmlLib', 'monaco'], function (require, exports, htmlLib, monaco) {
     function activate(_ctx) {
