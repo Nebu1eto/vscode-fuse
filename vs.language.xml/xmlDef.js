@@ -6,45 +6,46 @@ define(["require", "exports"], function (require, exports) {
     exports.language = {
         displayName: 'XML',
         name: 'xml',
-        mimeTypes: [],
         defaultToken: '',
-        nonWordTokens: ['delimiter.xml'],
         ignoreCase: true,
         editorOptions: { tabSize: 2, insertSpaces: true },
+        lineComment: '',
         blockCommentStart: '<!--',
         blockCommentEnd: '-->',
         // Useful regular expressions
         qualifiedName: /(?:[\w\.\-]+:)?[\w\.\-]+/,
         enhancedBrackets: [{
-            tokenType: 'tag.tag-$1.xml',
-            openTrigger: '>',
-            open: /<(\w[\w\d]*)(\s+.*[^\/]>|\s*>)[^<]*$/i,
-            closeComplete: '</$1>',
-            closeTrigger: '>',
-            close: /<\/(\w[\w\d]*)\s*>$/i
-        }],
+                tokenType: 'tag.tag-$1.xml',
+                openTrigger: '>',
+                open: /<(\w[\w\d]*)([^\/>]*(?!\/)>)[^<>]*$/i,
+                closeComplete: '</$1>',
+                closeTrigger: '>',
+                close: /<\/(\w[\w\d]*)\s*>$/i
+            }],
+        autoClosingPairs: [['\'', '\''], ['"', '"']],
         tokenizer: {
             root: [
                 [/[^<&]+/, ''],
                 { include: '@whitespace' },
+                // Standard opening tag
                 [/(<)(@qualifiedName)/, [
-                    { token: 'delimiter.start', bracket: '@open' },
-                    { token: 'tag.tag-$2', bracket: '@open', next: '@tag.$2' }
-                ]],
+                        { token: 'delimiter.start', bracket: '@open' },
+                        { token: 'tag.tag-$2', bracket: '@open', next: '@tag.$2' }]],
+                // Standard closing tag
                 [/(<\/)(@qualifiedName)(\s*)(>)/, [
-                    { token: 'delimiter.end', bracket: '@open' },
-                    { token: 'tag.tag-$2', bracket: '@close' },
-                    '',
-                    { token: 'delimiter.end', bracket: '@close' }
-                ]],
+                        { token: 'delimiter.end', bracket: '@open' },
+                        { token: 'tag.tag-$2', bracket: '@close' },
+                        '',
+                        { token: 'delimiter.end', bracket: '@close' }]],
+                // Meta tags - instruction
                 [/(<\?)(@qualifiedName)/, [
-                    { token: 'delimiter.start', bracket: '@open' },
-                    { token: 'metatag.instruction', next: '@tag' }
-                ]],
+                        { token: 'delimiter.start', bracket: '@open' },
+                        { token: 'metatag.instruction', next: '@tag' }]],
+                // Meta tags - declaration
                 [/(<\!)(@qualifiedName)/, [
-                    { token: 'delimiter.start', bracket: '@open' },
-                    { token: 'metatag.declaration', next: '@tag' }
-                ]],
+                        { token: 'delimiter.start', bracket: '@open' },
+                        { token: 'metatag.declaration', next: '@tag' }]],
+                // CDATA
                 [/<\!\[CDATA\[/, { token: 'delimiter.cdata', bracket: '@open', next: '@cdata' }],
                 [/&\w+;/, 'string.escape'],
             ],
@@ -61,9 +62,8 @@ define(["require", "exports"], function (require, exports) {
                 [/@qualifiedName/, 'attribute.name'],
                 [/\?>/, { token: 'delimiter.start', bracket: '@close', next: '@pop' }],
                 [/(\/)(>)/, [
-                    { token: 'tag.tag-$S2', bracket: '@close' },
-                    { token: 'delimiter.start', bracket: '@close', next: '@pop' }
-                ]],
+                        { token: 'tag.tag-$S2', bracket: '@close' },
+                        { token: 'delimiter.start', bracket: '@close', next: '@pop' }]],
                 [/>/, { token: 'delimiter.start', bracket: '@close', next: '@pop' }],
             ],
             whitespace: [
@@ -79,3 +79,4 @@ define(["require", "exports"], function (require, exports) {
         },
     };
 });
+//# sourceMappingURL=xmlDef.js.map

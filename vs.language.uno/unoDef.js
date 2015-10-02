@@ -155,52 +155,15 @@ define(["require", "exports"], function (require, exports) {
             'await'
         ],
         namespaceFollows: [
-            'namespace',
-            'using',
+            'namespace', 'using',
         ],
         parenFollows: [
-            'if',
-            'for',
-            'while',
-            'switch',
-            'foreach',
-            'using',
-            'catch'
+            'if', 'for', 'while', 'switch', 'foreach', 'using', 'catch'
         ],
         operators: [
-            '=',
-            '??',
-            '||',
-            '&&',
-            '|',
-            '^',
-            '&',
-            '==',
-            '!=',
-            '<=',
-            '>=',
-            '<<',
-            '+',
-            '-',
-            '*',
-            '/',
-            '%',
-            '!',
-            '~',
-            '++',
-            '--',
-            '+=',
-            '-=',
-            '*=',
-            '/=',
-            '%=',
-            '&=',
-            '|=',
-            '^=',
-            '<<=',
-            '>>=',
-            '>>',
-            '=>'
+            '=', '??', '||', '&&', '|', '^', '&', '==', '!=', '<=', '>=', '<<',
+            '+', '-', '*', '/', '%', '!', '~', '++', '--', '+=',
+            '-=', '*=', '/=', '%=', '&=', '|=', '^=', '<<=', '>>=', '>>', '=>'
         ],
         symbols: /[=><!~?:&|+\-*\/\^%]+/,
         // escape sequences
@@ -208,33 +171,44 @@ define(["require", "exports"], function (require, exports) {
         // The main tokenizer for our languages
         tokenizer: {
             root: [
+                // identifiers and keywords
                 [/\@?[a-zA-Z_]\w*/, { cases: {
-                    '@namespaceFollows': { token: 'keyword.$0', next: '@namespace' },
-                    '@keywords': { token: 'keyword.$0', next: '@qualified' },
-                    '@default': { token: 'identifier', next: '@qualified' }
-                } }],
+                            '@namespaceFollows': { token: 'keyword.$0', next: '@namespace' },
+                            '@keywords': { token: 'keyword.$0', next: '@qualified' },
+                            '@default': { token: 'identifier', next: '@qualified' }
+                        }
+                    }],
+                // whitespace
                 { include: '@whitespace' },
+                // delimiters and operators
                 [/}/, { cases: {
-                    '$S2==interpolatedstring': { token: 'string.quote', bracket: '@close', next: '@pop' },
-                    '@default': '@brackets'
-                } }],
+                            '$S2==interpolatedstring': { token: 'string.quote', bracket: '@close', next: '@pop' },
+                            '@default': '@brackets' } }],
                 [/[{}()\[\]]/, '@brackets'],
                 [/[<>](?!@symbols)/, '@brackets'],
                 [/@symbols/, { cases: { '@operators': 'delimiter', '@default': '' } }],
+                // literal string
                 [/\@"/, { token: 'string.quote', bracket: '@open', next: '@litstring' }],
+                // interpolated string
                 [/\$"/, { token: 'string.quote', bracket: '@open', next: '@interpolatedstring' }],
+                // numbers
                 [/\d*\.\d+([eE][\-+]?\d+)?[fFdD]?/, 'number.float'],
                 [/0[xX][0-9a-fA-F]+/, 'number.hex'],
                 [/\d+/, 'number'],
+                // delimiter: after number because of .\d floats
                 [/[;,.]/, 'delimiter'],
+                // strings
                 [/"([^"\\]|\\.)*$/, 'string.invalid'],
                 [/"/, { token: 'string.quote', bracket: '@open', next: '@string' }],
+                // characters
                 [/'[^\\']'/, 'string'],
                 [/(')(@escapes)(')/, ['string', 'string.escape', 'string']],
                 [/'/, 'string.invalid']
             ],
             qualified: [
-                [/[a-zA-Z_][\w]*/, { cases: { '@keywords': { token: 'keyword.$0' }, '@default': 'identifier' } }],
+                [/[a-zA-Z_][\w]*/, { cases: { '@keywords': { token: 'keyword.$0' },
+                            '@default': 'identifier' }
+                    }],
                 [/\./, 'delimiter'],
                 ['', '', '@pop'],
             ],
@@ -246,6 +220,7 @@ define(["require", "exports"], function (require, exports) {
             ],
             comment: [
                 [/[^\/*]+/, 'comment'],
+                // [/\/\*/,    'comment', '@push' ],    // no nested comments :-(
                 ['\\*/', 'comment', '@pop'],
                 [/[\/*]/, 'comment']
             ],
@@ -278,3 +253,4 @@ define(["require", "exports"], function (require, exports) {
         },
     };
 });
+//# sourceMappingURL=unoDef.js.map
