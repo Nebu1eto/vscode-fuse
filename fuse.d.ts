@@ -8,7 +8,31 @@
  * require('FuseJS/Observable');
  * ---------------------------------- */
 
-// TODO : Work in progress...
+declare class Observable {
+	constructor(object?: any);
+	value: any;
+	length: number;
+	getAt(index: number): any;
+	add(value: any);
+	remove(value: any);
+	tryRemove(value: any);
+	removeWhere(func: (any) => any);
+	forEach(func: (any) => any);
+	replaceAt(index: number, value: any);
+	replaaceAll(array: Array<any>);
+	clear();
+	indexOf(value: any): number;
+	contains(value: any): boolean;
+	refreshAll(newValues: any, compareFunc: (oldItem: any, newItem: any) => boolean, 
+		updateFunc: (oldItem: any, newItem: any) => void, mapFunc: (newItem) => any);
+	where(condition: (object: any) => boolean): Observable;
+	map(func: (object: any) => any): Observable;
+	count(): number;
+	count(condition: (object: any) => boolean): Observable;
+	not(): boolean;
+	filter(condition: (object: any) => boolean): Observable;
+	expand(): Observable; 
+}
 
 /* -----------------------------------
  * Define Promise
@@ -85,6 +109,7 @@ declare class Body {
 	json<T>(): Promise<T>;
 	text(): Promise<string>;
 }
+
 declare class Response extends Body {
 	constructor(body?: BodyInit, init?: ResponseInit);
 	error(): Response;
