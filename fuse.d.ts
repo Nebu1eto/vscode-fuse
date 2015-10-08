@@ -10,6 +10,7 @@
  * require('FuseJS/Observable');
  * ---------------------------------- */
 
+// TODO : Work in progress...
 declare module "FuseJS/Observable" {
 	export interface Observable {
 		constructor(...object: any[]);
@@ -39,7 +40,6 @@ declare module "FuseJS/Observable" {
 
 	//export function constructor(...object: any[]): Observable;
 }
-
 
 /* -----------------------------------
  * Define Promise
@@ -149,29 +149,44 @@ declare function fetch (url: string | Request, init?: RequestInit): Promise<Resp
  * require('FuseJS/Storage');
  * ---------------------------------- */
 
-// TODO : Work in progress...
-
+declare module "FuseJS/Storage" {
+	export function write (name: string, value: any): boolean;
+	export function read (name: string): Promise<File>;
+	export function writeSync (name: string, value: any): boolean;
+	export function readSync (name: string): File;
+	export function deleteSync (name: string): boolean;
+}
 
 /* -----------------------------------
  * Define Lifecycle API
  * require('FuseJS/Lifecycle');
  * ---------------------------------- */
 
-// TODO : Work in progress...
+declare module "FuseJS/Lifecycle" {
+	export var onEnteringForeground: () => void;
+	export var onEnteringBackground: () => void;
+	export var onEnteringInteractive: () => void;
+	export var onExitedInteractive: () => void;
+	export var onTerminating: () => void;
+}
 
 /* -----------------------------------
  * Define Phone API
  * require('FuseJS/Phone');
  * ---------------------------------- */
 
-// TODO : Work in progress...
+declare module "FuseJS/Phone" {
+	export function call (time: string): void;
+}
 
 /* -----------------------------------
  * Define Camera API
  * require('FuseJS/Camera');
  * ---------------------------------- */
 
-// TODO : Work in progress...
+declare module "FuseJS/Camera" {
+	export function takePicture (config: any): Promise<File>;
+}
 
 /* -----------------------------------
  * Define Vibration API
