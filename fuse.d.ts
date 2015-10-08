@@ -1,6 +1,8 @@
 /**
  * Type Definition File for FuseJS
  * from vscode-fuse (https://github.com/realignist/vscode-fuse)
+ * 
+ * Created by Realignist, Thanks for Saschanaz.
  */
 
 /* -----------------------------------
@@ -8,31 +10,36 @@
  * require('FuseJS/Observable');
  * ---------------------------------- */
 
-declare class Observable {
-	constructor(object?: any);
-	value: any;
-	length: number;
-	getAt(index: number): any;
-	add(value: any);
-	remove(value: any);
-	tryRemove(value: any);
-	removeWhere(func: (any) => any);
-	forEach(func: (any) => any);
-	replaceAt(index: number, value: any);
-	replaaceAll(array: Array<any>);
-	clear();
-	indexOf(value: any): number;
-	contains(value: any): boolean;
-	refreshAll(newValues: any, compareFunc: (oldItem: any, newItem: any) => boolean, 
-		updateFunc: (oldItem: any, newItem: any) => void, mapFunc: (newItem) => any);
-	where(condition: (object: any) => boolean): Observable;
-	map(func: (object: any) => any): Observable;
-	count(): number;
-	count(condition: (object: any) => boolean): Observable;
-	not(): boolean;
-	filter(condition: (object: any) => boolean): Observable;
-	expand(): Observable; 
+declare module "FuseJS/Observable" {
+	export interface Observable {
+		constructor(...object: any[]);
+		value: any;
+		length: number;
+		getAt(index: number): any;
+		add(value: any);
+		remove(value: any);
+		tryRemove(value: any);
+		removeWhere(func: (any) => any);
+		forEach(func: (any) => any);
+		replaceAt(index: number, value: any);
+		replaaceAll(array: Array<any>);
+		clear();
+		indexOf(value: any): number;
+		contains(value: any): boolean;
+		refreshAll(newValues: any, compareFunc: (oldItem: any, newItem: any) => boolean, 
+			updateFunc: (oldItem: any, newItem: any) => void, mapFunc: (newItem) => any);
+		where(condition: (object: any) => boolean): Observable;
+		map(func: (object: any) => any): Observable;
+		count(): number;
+		count(condition: (object: any) => boolean): Observable;
+		not(): boolean;
+		filter(condition: (object: any) => boolean): Observable;
+		expand(): Observable; 
+	}
+
+	//export function constructor(...object: any[]): Observable;
 }
+
 
 /* -----------------------------------
  * Define Promise
@@ -135,9 +142,7 @@ declare type HeaderInit = Headers|Array<string>;
 declare type BodyInit = Blob|FormData|string;
 declare type RequestInfo = Request|string;
 
-interface Window {
-	fetch(url: string|Request, init?: RequestInit): Promise<Response>;
-}
+declare function fetch(url: string | Request, init?: RequestInit): Promise<Response>;
 
 /* -----------------------------------
  * Define Storage API
@@ -180,4 +185,7 @@ interface Window {
  * require('FuseJS/InterApp');
  * ---------------------------------- */
 
-// TODO : Work in progress...
+declare module "FuseJS/InterApp" {
+	export function launchUri(uri: string);
+	export var onReceivedUri: (uri: string) => void; 
+}
