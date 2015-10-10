@@ -10,7 +10,6 @@
  * require('FuseJS/Observable');
  * ---------------------------------- */
 
-// TODO : Work in progress...
 declare module "FuseJS/Observable" {
     module o {
         interface Observable {
@@ -24,7 +23,7 @@ declare module "FuseJS/Observable" {
             removeWhere(func: (any) => any);
             forEach(func: (any) => any);
             replaceAt(index: number, value: any);
-            replaaceAll(array: Array<any>);
+            replaceAll(array: Array<any>);
             clear();
             indexOf(value: any): number;
             contains(value: any): boolean;
