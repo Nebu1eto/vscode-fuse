@@ -13,10 +13,9 @@ if [ "$install" = "Y" ]
 then
 	echo ""
 	echo "Installing..."
-	mkdir -p $HOME/.vscode/extensions
-	cp -R uno $HOME/.vscode/extensions/
-	cp -R ux $HOME/.vscode/extensions/
-	cp -R unoproj $HOME/.vscode/extensions/
+	cp -R vs.language.uno /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/plugins/
+	rm -rf /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/plugins/vs.language.xml
+	cp -R vs.language.xml /Applications/Visual\ Studio\ Code.app/Contents/Resources/app/plugins/
 	echo "Install Complete!"
 	exit 0
 	break
