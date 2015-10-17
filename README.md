@@ -1,12 +1,15 @@
 # Fuse Helper for Visual Studio Code
 
+## Version
+It's for Visual Studio Code 0.9.1. If you using previous version, please check legacy branch.
+
 ## Install
 
-### OS X
-Move this files to `/Applications/Visual Studio Code.app/Contents/Resources/app/plugins` and restart VS Code.
+### OS X or Linux
+Use install.sh. That script will install plugin for you.
 
-### Else.
-Move this files to plugin folders for VS Code and restart VS Code.
+### Windows
+Move uno, unoproj, ux folders to `%USERPROFILE%\.vscode\extensions` directory.
 
 ## Example
 

@@ -1,11 +1,11 @@
 #!/bin/bash
 # Automatic Install Script.
-# ONLY WORKS FOR OS X.
+# ONLY WORKS FOR *NIX
 
 echo "Install Visual Studio Plugin for Fuse."
 echo "You don't need restart Visual Studio Code."
 echo ""
-echo "WARNING : IT ONLY WORKS FOR OS X"
+echo "WARNING : IT ONLY WORKS FOR OS X OR LINUX"
 echo -n "Do you want to install? (Y / N) : "
 read install;
 
